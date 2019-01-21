@@ -1,4 +1,2 @@
 # master_data_science
-nueva linea
-Para el segundo commit
-desde github
+Notebooks generados en el Master de Data Science realizado en Kschool

@@ -3,10 +3,32 @@
 import pandas as pd
 
 from importlib import reload # Reload Library
-reload(pd)
+relo
+ad(pd)
 
 import os
 os.getcwd() #get current directory
+```
+
+# TIPS
+
+## Enumerate
+```python
+for i, elements in enumerate(planets):
+    pass
+```
+## ZIP
+```python
+planets =('mercurio', 'venus','tierra','mars')    
+n_moons = [0,0,1,2]
+list(zip(planets, n_moons))
+# [('mercurio', 0), ('venus', 0), ('tierra', 1), ('mars', 2)]
+```
+
+## Comprehension
+```python
+[n for n in range(10) if n % 2 ==0] #even number < 10
+
 ```
 
 # NUMPY
@@ -36,7 +58,12 @@ a = b[:]   # different objects
 a = b.copy # different objects
 a = b      # reference the same object, if one is updated then the other is also updated
 ```
+## Lists
+```python
+List.sort() y List.reverse() # update list
 
+list(sorted(list)) y list(reversed(List)) # devuelve la lista ordenada o al reves pero sin modificarla
+```
 
 # PANDAS
 ## Dummies
@@ -49,7 +76,7 @@ def createDummies(df, var_name):
     return df
 ```
 
-##Prints
+## Prints
 ```python
 name ='hitos'
 birth = 1990

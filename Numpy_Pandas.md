@@ -96,5 +96,20 @@ def function_name(variable=(0,0)): # Default value (0,0)
     'Function Description, help(function_name) returns the text in here'
     return ....
     
-fun1() or fun2() or fun3() = the first returned value different than None
+# fun1() or fun2() or fun3() = the first returned value different than None
 ```
+
+## Functional Programming
+```python
+map(lambda n: n**2, input_list)
+map(function_name, input list)
+
+filter(lambda n: n<10, input_list)
+filter(function_name, input_list)
+[element for element in input_list if function_name(element)]
+
+list(map(lambda n: n**2,filter(function_name, input_list)))
+
+from functools import reduce
+reduce(function_name, input_list) # function_name takes 2 and only 2 parameters
+``

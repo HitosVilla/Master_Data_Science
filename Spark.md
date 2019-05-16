@@ -69,7 +69,7 @@ functions.udf(lambda x: x+x)
 df3 = df.select('id','position',uds_log1p('id'))
 
 # UDF are faster in Scala than in pySpark
-
+```
 
 
 

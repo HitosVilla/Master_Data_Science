@@ -1,5 +1,6 @@
-CTRL + l - clear screen
-history
+* CTRL + l - clear screen
+* history
+* man <comand> --> help
 
 # Files
 

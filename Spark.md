@@ -12,6 +12,8 @@ __Advantage__
 ```
 from pyspark.sql import SparkSession
 session = SparkSession.builder.getOrCreate()  # Create session
+# if notebooke has been open with "pyspark" you can use direcctly spark instead of the last 2 lines
+
 session.sparkContext.getConf().getAll()       # All config
 session = SparkSession.builder.config('someoption.key','somevalue').getOrCreate() #Update config
 ```
@@ -149,4 +151,8 @@ words = s_lines.map(lambda line: line.lower())\
                
                
 ```
+
+
+
+
 

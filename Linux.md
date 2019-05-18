@@ -5,11 +5,11 @@
 # Files
 
 Content of file and number of line (-n)
-```python
+```shell
 cat -n requirements.txt 
 ```
 List Files
-```python
+```shell
 ls -a # all files, even hiiden
 ls -R # list subdirectories recursively 
 ls -d # do not enter inside directories 
@@ -19,18 +19,18 @@ ls -X # sort alphabetically by entry extension
 ls -r # reverse order while sorting
 ```
 Change permission
-```python
+```shell
 chmod uo-r,g+xw file_name
 # ugo = user/group/other (special option a=all)
 # rwx= read/write/execute
 ```
 Create
-```
+```shell
 echo "Hello" > file_name # create file
 echo "World" >> file_name # append to file
 ```
 Copy
-```python
+```shell
 mv #move and RENAME
 cp source_file/dir destination_file/dir
 # -r : recursive mode used for directories
@@ -39,11 +39,11 @@ cp source_file/dir destination_file/dir
 # -p: preserve the file permission and other attributes/metadata
 ```
 Delete
-```
+```shell
 rm 
 ```
 Count
-```python
+```shell
 cat file_name | wc
 # -c, --bytes 
 # -m, --chars 
@@ -52,7 +52,7 @@ cat file_name | wc
 ```
 
 Head and Tail
-```
+```shell
 cat file_name | head 
 # -c K : first K bytes
 # -n K : first K lines instead of the first 10; 

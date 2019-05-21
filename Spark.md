@@ -90,7 +90,38 @@ session.createDataFrame(zip(ids,positions),schema=my_schema)
 
 https://databricks.com/blog/2015/06/02/statistical-and-mathematical-functions-with-dataframes-in-spark.html
 
+# Script
+```shell
+from __future__ import print_function
+from pyspark.sql import SparkSession, types, functions
+import sys
 
+# Create functions
+def zipsort(a,b):
+    return sorted(zip(a,b))
+zipsort_udf = functions.udf(zipsort, types.ArrayType(types.ArrayType(types.FloatType())))
+
+if __name__ == "__main__":
+
+    file = sys.argv[1]
+    out = sys.argv[2]
+```
+
+### Execute local job 
+```shell
+unset PYSPARK_DRIVER_PYTHON
+spark-submit myjob.py file out
+```
+
+### Execute job at Google Cloud
+```shell
+gcloud init
+gsutil mb -p [CLUSTER_NAME]  gs://bucket-name                     # Create a folder
+gsutil cp [LOCAL_OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/ # Upload file
+gsutil ls gs://[DESTINATION_BUCKET_NAME]/                         # Ckeck if file has been uploaded
+gcloud dataproc jobs submit pyspark --cluster [CLUSTER] \ [myjob.py] -- [ARGS]  # Execute
+
+```
 
 # RDDs
 ```Spark

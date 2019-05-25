@@ -183,6 +183,78 @@ words = s_lines.map(lambda line: line.lower())\
                
 ```
 
+# R
+
+```r
+install.packages("sparklyr")
+library(sparklyr)
+spark_install(version = "2.3")
+
+sc <- spark_connect(master = "local")
+spark_connection_is_open(sc)              # TRUE if spark is connected 
+
+
+puntero_spark <- spark_read_csv(sc, 'table_name', "./data/file.csv") # read flights table directly into Spark
+
+tabla_r <- read.csv('./data/file.csv')
+puntero_spark <- copy_to(sc, tabla_r)     # Copy dataframe to the Spark cluster 
+                                          # la tabla en spark se sigue llamanda tabla_r
+                                          # puntero_spark apunta a tabla_r de spark y 
+                                          # sobre el puntero se pueden usar comandos dplyr
+
+tabla_spark %>% group_by(fieldname) %>% summarize(count = n(), mean_rating = mean(Rating)) %>% collect()
+result %>% arrange(desc(mean_rating))     # Other transformation                                                                       
+
+src_tbls(sc)                              # See which data frames are available in Spark
+
+rm(chocolate_tbls)
+chocolate_tbls <- tbl(sc, "chocolate")    # tbl() nos permiete acceder a los dataframes de Spark 
+                                          # incluso si hemos borrado la referencia 
+
+table_filtered <- puntero_spark %>%
+                  filter(!is.na(ARR_DELAY) & !is.na(DEP_DELAY)) %>%
+                  filter(DEP_DELAY > 15 & DEP_DELAY < 240) 
+sql <- ft_dplyr_transformer(sc, table_filtered)  # encapsula las transformaciones definidas sobre un pipeline de datos
+print(sql$param_map$statement)            # Print sql sentence
+
+model_data <- table_filtered %>%
+              left_join(airlines_tbl, by = c("UNIQUE_CARRIER" = "IATA")) %>%
+              mutate(GAIN = DEP_DELAY - ARR_DELAY) %>% # New Column
+              select(YEAR, MONTH, ARR_DELAY, DEP_DELAY, DISTANCE, UNIQUE_CARRIER, AIRLINE_NAME, TAIL_NUM, GAIN, COUNTRY)
+              
+              distinct(ORIGIN_AIRPORT_ID, ORIGIN_CITY_NAME) %>% 
+              transmute(id = as.character(ORIGIN_AIRPORT_ID), name = ORIGIN_CITY_NAME)
+
+summarize_carrier <- model_data %>%
+                    group_by(UNIQUE_CARRIER) %>%
+                    summarize(airline = min(AIRLINE_NAME), gain=mean(GAIN), 
+                              distance=mean(DISTANCE), depdelay=mean(DEP_DELAY)) %>%
+                    select(airline, gain, distance, depdelay) %>%
+                    arrange(gain)
+
+# Partition the data into training and validation sets
+model_partition <- model_data %>% sdf_random_split (train = 0.7, valid = 0.2, test = 0.1, seed = 43)
+
+# Fit a linear model
+ml1 <- model_partition$train %>% ml_linear_regression(GAIN ~ DISTANCE + DEP_DELAY + UNIQUE_CARRIER + COUNTRY)
+
+ft_r_formula(LBEL ~ FEATURE1 + FEATURE2)    # Vector Assembler
+```
+## SparkSQL
+```r
+library(DBI)
+
+sdf_register( model_partition$valid, name = "model_validation")
+model_validation_samples <- dbGetQuery(sc, "SELECT * FROM model_validation LIMIT 10")
+
+ml_predict(ml1, sdf_copy_to(sc, model_validation_samples[5, ]))
+```
+## Write and Close
+```r
+spark_write_parquet(puntero_spark, "./data/path")
+
+spark_disconnect(sc)
+```
 
 
 

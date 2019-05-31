@@ -61,20 +61,20 @@ cat file_name | head
 tail file_name 
 ```
 
-Find
+Find --> The first argument to find is the path where it should start looking. The path . means the current directory.
 ```python
-find -name "tExt_file*"         # by name
-find -iname "tExt_file*"        # by name ignoring case
+find . -name "tExt_file*"         # by name
+find . -iname "tExt_file*"        # by name ignoring case
 find -type d -name "text_file*" # f=file, d=directory
 # -maxdepth : max levels of directories below the starting-points
 # -mindepth : min levels of directories below the starting-points
 # -mmin -N  : modified within N minutes
 # -mtime -N : modified within N days
 
-find -type f -name "text_file*" -exec ls -l {} \; # execute command ls -l on file
-find -type f -name "text_file*" -ok rm -r  {} \;   # prompt before executing the command
-find -type f -name "text_file*" -exec echo "FOUND IT!!!" \;
-find -type f -name "text_file*" -exec ls -l {} \; -exec head -2 {} \;
+find . -type f -name "text_file*" -exec ls -l {} \; # execute command ls -l on file
+find . -type f -name "text_file*" -ok rm -r  {} \;   # prompt before executing the command
+find . -type f -name "text_file*" -exec echo "FOUND IT!!!" \;
+find . -type f -name "text_file*" -exec ls -l {} \; -exec head -2 {} \;
 # -execdir/-okdir 
 
 # Find top 10 files by size in your home directory including the subdirectories. 

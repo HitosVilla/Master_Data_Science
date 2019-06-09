@@ -1,11 +1,11 @@
 1. Create virtual enviroment in a Linux Terminal
 ```
-   mkvirtualenv <env_name>
+   python3 -m venv <env_name>
 ```   
 
 2. Activate virtual enviroment
 ```
-   workon <env_name>
+   source <env_name>/bin/activate
 ```   
 
 3. Install a Kernell

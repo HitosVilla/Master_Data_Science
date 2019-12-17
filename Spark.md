@@ -1,3 +1,4 @@
+https://medium.com/@GalarnykMichael/install-spark-on-ubuntu-pyspark-231c45677de0
 # SparkSQL and DataFrames
 
 Dataset(data with type) vs DataFrame (rows of data)

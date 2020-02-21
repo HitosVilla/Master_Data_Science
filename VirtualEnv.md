@@ -27,7 +27,15 @@
    <env_name> $ pip freeze > requirements.txt
 ```
 
-7. Desactivate deactivate
+7. Desactivate 
 ```
    <env_name> $ deactivate
 ```
+8. Remove 
+```
+source venv/bin/activate
+pip freeze > requirements.txt
+pip uninstall -r requirements.txt -y
+deactivate
+```
+rm -r venv/

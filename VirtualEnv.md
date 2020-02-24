@@ -25,6 +25,7 @@
 6. Export requirements file with the list of installed libraries
 ```
    <env_name> $ pip freeze > requirements.txt
+   pip install -r requirements.txt
 ```
 
 7. Desactivate 
